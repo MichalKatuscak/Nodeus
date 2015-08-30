@@ -141,7 +141,7 @@ var HelloMessage = React.createClass({
     render: function() {
         return (
             &lt;DefaultLayout title={this.props.title}>
-                &lt;h1>{this.props.headline}</h1>
+                &lt;h1>{this.props.headline}&lt;/h1>
             &lt;/DefaultLayout>
         );
     }
