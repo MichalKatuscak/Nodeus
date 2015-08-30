@@ -140,9 +140,9 @@ var DefaultLayout = require('./layouts/default');
 var HelloMessage = React.createClass({
     render: function() {
         return (
-            <DefaultLayout title={this.props.title}>
-                <h1>{this.props.headline}</h1>
-            </DefaultLayout>
+            &lt;DefaultLayout title={this.props.title}>
+                &lt;h1>{this.props.headline}</h1>
+            &lt;/DefaultLayout>
         );
     }
 });
