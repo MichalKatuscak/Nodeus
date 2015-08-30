@@ -69,6 +69,87 @@ app.js
 package.json
 </pre>
 
+
+
+<h2>MVC</h2>
+<h3>Model</h3>
+Model pracuje s daty (například z MySQL):
+<em>/app/models/page.js</em>
+<pre lang="php">
+var mysql = require("../mysql").connection;
+
+var Page = {
+    get: function(callback){
+        mysql.query("SELECT 'Nadpis webu' AS headline, 'Titulek' AS title", function (error, rows, fields) {
+            callback(rows[0]);
+        });
+    }
+};
+
+module.exports = Page;
+</pre>
+
+V controlleru s ním lze pracovat po nahrání přes <em>require</em>
+<pre lang="php">
+var models = {
+    page: require("../models/page")
+};
+models.page.get(function(data){...});
+</pre>
+
+<h2>Controller</h2>
+Který se použije se rozhoduje v <em>app.js</em>
+<pre lang="php">
+app.get('/', require('./app/controllers').index);
+</pre>
+
+<em>/app/controllers/index.js</em>
+<pre lang="php">
+var models = {
+    page: require("../models/page")
+};
+
+var render = function(res, data){
+    res.render('index', { 
+        title: data.title, 
+        headline: data.headline 
+    });
+};
+
+module.exports.index = function(req, res){
+    models.page.get(function(data){
+        render(res, data);
+    });
+};
+</pre>
+
+<h3>View</h3>
+V controlleru je řečeno, která šablona se zavolá:
+<pre lang="php">
+    res.render('index', { 
+        title: data.title, 
+        headline: data.headline 
+    });
+</pre>
+
+<em>/app/view/index.jsx</em>
+<pre lang="php">
+var React = require('react');
+var DefaultLayout = require('./layouts/default');
+
+var HelloMessage = React.createClass({
+    render: function() {
+        return (
+            <DefaultLayout title={this.props.title}>
+                <h1>{this.props.headline}</h1>
+            </DefaultLayout>
+        );
+    }
+});
+
+module.exports = HelloMessage;
+</pre>
+
 ##Instalace
 Pro instalaci stačí pouze nainstalovat Node.js moduly (v package.json jsou definované):
 <pre>
