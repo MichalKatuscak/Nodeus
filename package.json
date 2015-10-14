@@ -7,6 +7,7 @@
     "express-react-views": "^0.8.2",
     "express": "^4.13.3",
     "mysql": "^2.9.0",
+    "mongodb": "~2.0",
     "react": "^0.13.3"
   },
   "devDependencies": {},
