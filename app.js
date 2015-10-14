@@ -6,6 +6,7 @@ app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
 app.get('/', require('./app/controllers').index);
+app.get('/login/', require('./app/controllers/login').index);
 
 app.use(express.static('public'));
 
